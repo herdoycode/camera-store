@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
 import { MdOutlineShoppingCart, MdClose } from "react-icons/md";
-import { GrSun } from "react-icons/gr";
-import { GrMoon } from "react-icons/gr";
+import { BsSun, BsMoon } from "react-icons/bs";
 import "./Navbar.scss";
+import { useThemeStore } from "../../store";
 
 const Navbar = () => {
   const [navClass, setNavClass] = useState<string>("center");
   const [isCollapse, setCollapse] = useState<boolean>(true);
+  const mode = useThemeStore((store) => store.mode);
+  const toggleTheme = useThemeStore((store) => store.toggleTheme);
 
   const handleNavToggle = () => {
     setCollapse(!isCollapse);
@@ -60,8 +62,12 @@ const Navbar = () => {
         <div className="item">
           <img src="https://i.ibb.co/CJzdzdc/me.jpg" alt="user" />
         </div>
-        <div className="item">
-          {true ? <GrSun className="icon" /> : <GrMoon className="icon" />}
+        <div onClick={toggleTheme} className="item">
+          {mode === "dark" ? (
+            <BsSun className="icon" />
+          ) : (
+            <BsMoon className="icon" />
+          )}
         </div>
         <div className="item">
           <MdOutlineShoppingCart className="icon" />
