@@ -1,3 +1,6 @@
+.nav-fix {
+  height: 6rem;
+}
 .navbar {
   display: flex;
   align-items: center;
@@ -7,7 +10,8 @@
   display: flex;
   box-shadow: var(--box-shadow);
   background: var(--color-light);
-  position: relative;
+  position: fixed;
+  width: 100%;
   z-index: 10;
   .left {
     flex: 1;
