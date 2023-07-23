@@ -1,0 +1,122 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0rem 2rem;
+  height: 6rem;
+  display: flex;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 10;
+  .left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    .toggler {
+      cursor: pointer;
+      display: none;
+      .icon {
+        font-size: 2rem;
+      }
+      @media screen and (max-width: 768px) {
+        display: block;
+      }
+    }
+    .logo {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 2rem;
+      color: var(--color-primary);
+    }
+    .serarch {
+      display: flex;
+      align-items: center;
+      border: 1px solid gray;
+      padding: 0rem 1rem;
+      border-radius: 2.5rem;
+      input {
+        padding: 1rem 0rem;
+        border: none;
+        background: transparent;
+        outline: none;
+      }
+      .icon {
+        font-size: 2rem;
+      }
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+  .center {
+    flex: 1;
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 100%;
+      .link {
+        color: var(--color-text);
+      }
+    }
+    @media screen and (max-width: 768px) {
+      position: absolute;
+      background: var(--color-bg);
+      transform: translateY(-100%);
+      height: calc(100vh - 6rem);
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 1s ease;
+      z-index: -1;
+      ul {
+        flex-direction: column;
+      }
+      &.active {
+        top: 6rem;
+        transform: translateY(-0%);
+        transition: 0.5s ease;
+      }
+    }
+  }
+  .right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2rem;
+
+    .item {
+      position: relative;
+      .icon {
+        font-size: 2.5rem;
+        color: var(--color-text);
+        cursor: pointer;
+      }
+      .count {
+        position: absolute;
+        top: -0.6rem;
+        right: -0.8rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: var(--color-primary);
+        color: #fff;
+      }
+      img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+  }
+}
