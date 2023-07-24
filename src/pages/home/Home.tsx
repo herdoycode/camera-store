@@ -1,9 +1,10 @@
+import Slider from "../../components/slider/Slider";
 import "./Home.scss";
 
 const Home = () => {
   return (
-    <div>
-      <h2>Home</h2>
+    <div className="home">
+      <Slider />
     </div>
   );
 };
