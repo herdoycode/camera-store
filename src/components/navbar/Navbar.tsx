@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
 import { MdOutlineShoppingCart, MdClose } from "react-icons/md";
-import { BsSun, BsMoon } from "react-icons/bs";
+import { LiaMoonSolid } from "react-icons/lia";
+import { BsSun } from "react-icons/bs";
 import "./Navbar.scss";
 import { useThemeStore } from "../../store";
 
@@ -67,7 +68,7 @@ const Navbar = () => {
             {mode === "dark" ? (
               <BsSun className="icon" />
             ) : (
-              <BsMoon className="icon" />
+              <LiaMoonSolid className="icon" />
             )}
           </div>
           <div className="item">

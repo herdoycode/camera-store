@@ -1,0 +1,19 @@
+.card-wrapper {
+  padding: 1rem;
+  .card {
+    box-shadow: var(--box-shadow);
+    .card-body {
+      padding: 1rem;
+      h3 {
+        margin-bottom: 1rem;
+      }
+      p {
+        margin-bottom: 1rem;
+      }
+      span {
+        margin-bottom: 2rem;
+        font-size: 2.2rem;
+      }
+    }
+  }
+}
