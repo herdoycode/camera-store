@@ -5,4 +5,5 @@ export default interface Product {
   img: string;
   img1: string;
   img2: string;
+  price: number;
 }

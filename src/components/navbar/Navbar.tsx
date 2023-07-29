@@ -6,7 +6,7 @@ import { MdOutlineShoppingCart, MdClose } from "react-icons/md";
 import { LiaMoonSolid } from "react-icons/lia";
 import { BsSun } from "react-icons/bs";
 import "./Navbar.scss";
-import { useThemeStore } from "../../store";
+import { useCartStore, useThemeStore } from "../../store";
 
 const Navbar = () => {
   const [navClass, setNavClass] = useState<string>("center");
@@ -17,6 +17,8 @@ const Navbar = () => {
   const handleNavToggle = () => {
     setCollapse(!isCollapse);
   };
+
+  const cartItemCount = useCartStore((store) => store.items.length);
 
   useEffect(() => {
     setNavClass(isCollapse ? "center" : "center active");
@@ -73,7 +75,7 @@ const Navbar = () => {
           </div>
           <div className="item">
             <MdOutlineShoppingCart className="icon" />
-            <div className="count">0</div>
+            <div className="count"> {cartItemCount} </div>
           </div>
         </div>
       </div>
