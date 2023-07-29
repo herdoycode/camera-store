@@ -1,0 +1,54 @@
+.cart {
+  width: 100%;
+  height: calc(100vh - 6rem);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  .cart-body {
+    position: relative;
+    .close {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      cursor: pointer;
+      font-size: 2rem;
+    }
+    background: var(--color-bg);
+    h2 {
+      text-align: center;
+      padding: 2rem 0rem;
+    }
+    width: 768px;
+    table {
+      width: 100%;
+      th,
+      td {
+        padding: 0.25em 0.5em;
+        text-align: left;
+        button {
+          padding: 5px 10px;
+          border: none;
+          font-size: 2rem;
+          cursor: pointer;
+          &:nth-child(2) {
+            border: none;
+            background: none;
+            cursor: none;
+          }
+        }
+        &:nth-child(2) {
+          text-align: left;
+          font-size: 1.3rem;
+        }
+        img {
+          width: 7rem;
+        }
+      }
+    }
+  }
+}

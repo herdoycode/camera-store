@@ -14,6 +14,8 @@ const Navbar = () => {
   const mode = useThemeStore((store) => store.mode);
   const toggleTheme = useThemeStore((store) => store.toggleTheme);
 
+  const handleCartOpen = useCartStore((s) => s.handleOpen);
+
   const handleNavToggle = () => {
     setCollapse(!isCollapse);
   };
@@ -73,7 +75,7 @@ const Navbar = () => {
               <LiaMoonSolid className="icon" />
             )}
           </div>
-          <div className="item">
+          <div onClick={() => handleCartOpen()} className="item">
             <MdOutlineShoppingCart className="icon" />
             <div className="count"> {cartItemCount} </div>
           </div>
