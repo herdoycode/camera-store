@@ -1,17 +1,20 @@
+import Product from "../../entities/product";
 import Card from "../card/Card";
 import "./Latest.scss";
 
-const Latest = () => {
+interface Props {
+  title: string;
+  data?: Product[];
+}
+
+const Latest = ({ title, data }: Props) => {
   return (
     <div className="latest-wrapper">
-      <h2>Latest Products</h2>
+      <h2> {title} </h2>
       <div className="latest">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {data?.map((item) => (
+          <Card key={item._id} product={item} />
+        ))}
       </div>
     </div>
   );

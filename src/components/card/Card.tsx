@@ -1,14 +1,17 @@
+import Product from "../../entities/product";
 import "./Card.scss";
 
-const Card = () => {
+interface Props {
+  product: Product;
+}
+
+const Card = ({ product }: Props) => {
   return (
     <div className="card-wrapper">
       <div className="card">
         <div className="card-img">
-          <img
-            src="https://images.pexels.com/photos/593324/pexels-photo-593324.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
+          <img className="img-1" src={product.img} alt="" />
+          <img className="img-2" src={product.img1} alt="" />
         </div>
         <div className="card-body">
           <h3>This is a camera</h3>
