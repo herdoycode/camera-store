@@ -41,7 +41,7 @@ export const useCartStore = create<CartStoreInterface>()(
   persist(
     (set) => ({
       items: [],
-      isOpen: true,
+      isOpen: false,
       addToCart: (item) =>
         set(({ items }) => {
           const isPresent = items.find((i) => i._id === item._id);
