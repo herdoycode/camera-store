@@ -9,8 +9,11 @@
   bottom: 0;
   left: 0;
   z-index: 100;
+
   .cart-body {
     position: relative;
+    padding: 1rem;
+    padding-bottom: 2rem;
     .close {
       position: absolute;
       top: 1rem;
@@ -18,28 +21,56 @@
       cursor: pointer;
       font-size: 2rem;
     }
+    width: 768px;
     background: var(--color-bg);
     h2 {
       text-align: center;
       padding: 2rem 0rem;
     }
-    width: 768px;
     table {
       width: 100%;
       th,
       td {
         padding: 0.25em 0.5em;
         text-align: left;
-        button {
-          padding: 5px 10px;
-          border: none;
-          font-size: 2rem;
-          cursor: pointer;
-          &:nth-child(2) {
+        .quantity-control {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          button {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border: none;
-            background: none;
-            cursor: none;
+            font-size: 2rem;
+            outline: none;
+            background: var(--color-primary);
+            color: #fff;
+            cursor: pointer;
           }
+          .quantity {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+          }
+        }
+        .btn-close {
+          width: auto;
+          height: 3rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          background: var(--color-accent);
+          border: none;
+          outline: none;
+          color: #fff;
+          cursor: pointer;
         }
         &:nth-child(2) {
           text-align: left;
@@ -48,7 +79,26 @@
         img {
           width: 7rem;
         }
+        .total {
+          font-size: 1.8rem;
+        }
       }
+    }
+    .btn-checkout {
+      padding: 1rem;
+      border: none;
+      background: var(--color-primary);
+      outline: none;
+      font-size: 1.5rem;
+      color: #fff;
+      margin-top: 2rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .cart-body {
+      width: 100%;
     }
   }
 }

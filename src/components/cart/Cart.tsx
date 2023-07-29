@@ -8,6 +8,12 @@ const Cart = () => {
   const handleRemove = useCartStore((s) => s.removeItem);
   const increment = useCartStore((s) => s.incQuantity);
   const decrement = useCartStore((s) => s.decQuantity);
+
+  const subtotal = cartItems.reduce(
+    (total, item) => total + item.quantity * item.price,
+    0
+  );
+
   return (
     <div className="cart">
       <div className="cart-body">
@@ -20,51 +26,69 @@ const Cart = () => {
             : "Products in your cart"}
         </h2>
         {cartItems.length > 0 && (
-          <table>
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>title</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((c) => (
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>title</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map((c) => (
+                  <tr>
+                    <td>
+                      <img src={c.img} alt="" />
+                    </td>
+                    <td> {c.title} </td>
+                    <td> ${c.price} </td>
+                    <td>
+                      <div className="quantity-control">
+                        <button
+                          disabled={c.quantity === 0}
+                          onClick={() => decrement(c._id)}
+                        >
+                          -
+                        </button>
+                        <div className="quantity">{c.quantity}</div>
+                        <button
+                          disabled={c.quantity === 10}
+                          onClick={() => increment(c._id)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <button
+                        className="btn-close"
+                        style={{ fontSize: "12px", padding: "10px" }}
+                        onClick={() => handleRemove(c._id)}
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
                 <tr>
                   <td>
-                    <img src={c.img} alt="" />
+                    <span className="total">Subtotal</span>
                   </td>
-                  <td> {c.title} </td>
-                  <td> {c.price} </td>
+                  <td></td>
                   <td>
-                    <button
-                      disabled={c.quantity === 0}
-                      onClick={() => decrement(c._id)}
-                    >
-                      -
-                    </button>
-                    <button>{c.quantity}</button>
-                    <button
-                      disabled={c.quantity === 10}
-                      onClick={() => increment(c._id)}
-                    >
-                      +
-                    </button>
+                    <span className="total"> = ${subtotal}</span>
                   </td>
-                  <td>
-                    <button
-                      style={{ fontSize: "12px", padding: "10px" }}
-                      onClick={() => handleRemove(c._id)}
-                    >
-                      Remove
-                    </button>
-                  </td>
+                  <td></td>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </tfoot>
+            </table>
+            <button className="btn-checkout">Check Out</button>
+          </>
         )}
       </div>
     </div>
