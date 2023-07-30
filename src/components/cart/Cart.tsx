@@ -1,5 +1,6 @@
 import { useCartStore } from "../../store";
 import { VscChromeClose } from "react-icons/vsc";
+import { IoCloseOutline } from "react-icons/io5";
 import "./Cart.scss";
 
 const Cart = () => {
@@ -31,7 +32,6 @@ const Cart = () => {
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th>title</th>
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Remove</th>
@@ -43,12 +43,11 @@ const Cart = () => {
                     <td>
                       <img src={c.img} alt="" />
                     </td>
-                    <td> {c.title} </td>
                     <td> ${c.price} </td>
                     <td>
                       <div className="quantity-control">
                         <button
-                          disabled={c.quantity === 0}
+                          disabled={c.quantity === 1}
                           onClick={() => decrement(c._id)}
                         >
                           -
@@ -65,10 +64,9 @@ const Cart = () => {
                     <td>
                       <button
                         className="btn-close"
-                        style={{ fontSize: "12px", padding: "10px" }}
                         onClick={() => handleRemove(c._id)}
                       >
-                        Remove
+                        <IoCloseOutline className="icon" />
                       </button>
                     </td>
                   </tr>
@@ -77,11 +75,10 @@ const Cart = () => {
               <tfoot>
                 <tr>
                   <td>
-                    <span className="total">Subtotal</span>
+                    <span className="total">Subtotal=</span>
                   </td>
-                  <td></td>
                   <td>
-                    <span className="total"> = ${subtotal}</span>
+                    <span className="total">${subtotal}</span>
                   </td>
                   <td></td>
                 </tr>
