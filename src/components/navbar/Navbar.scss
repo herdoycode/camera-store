@@ -24,8 +24,9 @@
       display: none;
       .icon {
         font-size: 2rem;
+        cursor: pointer;
       }
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 900px) {
         display: block;
       }
     }
@@ -49,11 +50,7 @@
         color: var(--color-text);
         font-size: 1.5rem;
       }
-      .icon {
-        font-size: 2rem;
-        cursor: pointer;
-      }
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 900px) {
         display: none;
       }
     }
