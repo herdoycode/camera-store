@@ -79,3 +79,34 @@ export const useCartStore = create<CartStoreInterface>()(
     }
   )
 );
+
+interface ProductQuery {
+  brandId?: string;
+  price?: number;
+}
+
+interface GameQueryStore {
+  productQuery: ProductQuery;
+  setBrandId: (brandId: string) => void;
+  setPrice: (price: number) => void;
+}
+
+export const useProductQueryStore = create<GameQueryStore>((set) => ({
+  productQuery: {},
+
+  setBrandId: (brandId) =>
+    set((store) => ({
+      productQuery: {
+        ...store.productQuery,
+        brandId: brandId,
+        searchText: undefined,
+      },
+    })),
+  setPrice: (price) =>
+    set((store) => ({
+      productQuery: {
+        ...store.productQuery,
+        price: price,
+      },
+    })),
+}));

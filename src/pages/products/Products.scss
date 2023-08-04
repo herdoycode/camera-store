@@ -18,6 +18,9 @@
         li {
           padding: 0.5rem 0rem;
           cursor: pointer;
+          &.active {
+            font-weight: bold;
+          }
         }
       }
     }

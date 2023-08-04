@@ -17,10 +17,10 @@ const Card = ({ product }: Props) => {
         </div>
         <div className="card-body">
           <h3 onClick={() => navigate(`/products/${product._id}`)}>
-            This is a camera
+            {product.title}
           </h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit....</p>
-          <span>$350</span>
+          <span> {product.price} </span>
         </div>
       </div>
     </div>
