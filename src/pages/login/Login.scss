@@ -19,14 +19,23 @@
       gap: 1rem;
       align-items: center;
       justify-content: center;
-      input {
+      div {
         width: 100%;
-        padding: 1.5rem 2rem;
-        outline: none;
-        box-shadow: var(--box-shadow);
-        border: none;
-        background: transparent;
-        color: var(--color-text);
+        margin-bottom: 1rem;
+        text-align: start;
+        p {
+          color: var(--color-accent);
+          margin-top: 5px;
+        }
+        input {
+          width: 100%;
+          padding: 1.5rem 2rem;
+          outline: none;
+          box-shadow: var(--box-shadow);
+          border: none;
+          background: transparent;
+          color: var(--color-text);
+        }
       }
       button {
         width: 100%;
