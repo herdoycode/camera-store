@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
@@ -7,12 +7,15 @@ import { LiaMoonSolid } from "react-icons/lia";
 import { BsSun } from "react-icons/bs";
 import "./Navbar.scss";
 import { useCartStore, useThemeStore } from "../../store";
+import authContext from "../../auth/authContext";
 
 const Navbar = () => {
   const [navClass, setNavClass] = useState<string>("center");
   const [isCollapse, setCollapse] = useState<boolean>(true);
   const mode = useThemeStore((store) => store.mode);
   const toggleTheme = useThemeStore((store) => store.toggleTheme);
+
+  const { user } = useContext(authContext);
 
   const handleCartOpen = useCartStore((s) => s.handleOpen);
 
@@ -52,22 +55,43 @@ const Navbar = () => {
                 Products
               </Link>
             </li>
-            <li>
-              <Link onClick={handleNavToggle} className="link" to="/login">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link onClick={handleNavToggle} className="link" to="/signup">
-                Signup
-              </Link>
-            </li>
+            {!user && (
+              <>
+                <li>
+                  <Link onClick={handleNavToggle} className="link" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleNavToggle} className="link" to="/signup">
+                    Signup
+                  </Link>
+                </li>
+              </>
+            )}
+            {user && (
+              <li>
+                <span
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    handleNavToggle;
+                    window.location.reload();
+                  }}
+                  className="link"
+                >
+                  Logout
+                </span>
+              </li>
+            )}
           </ul>
         </div>
         <div className="right">
-          <div className="item">
-            <img src="https://i.ibb.co/CJzdzdc/me.jpg" alt="user" />
-          </div>
+          {user && (
+            <div className="item">
+              <img src={user.avatar} alt="user" />
+            </div>
+          )}
+
           <div onClick={toggleTheme} className="item">
             {mode === "dark" ? (
               <BsSun className="icon" />

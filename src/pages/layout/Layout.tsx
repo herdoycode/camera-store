@@ -5,6 +5,7 @@ import Footer from "../../components/footer/Footer";
 import { useEffect } from "react";
 import { useCartStore, useThemeStore } from "../../store";
 import Cart from "../../components/cart/Cart";
+import { ToastContainer } from "react-toastify";
 
 const Layout = () => {
   const mode = useThemeStore((store) => store.mode);
@@ -20,6 +21,7 @@ const Layout = () => {
       <Outlet />
       <Footer />
       {isOpenCart && <Cart />}
+      <ToastContainer position="top-center" />
     </div>
   );
 };

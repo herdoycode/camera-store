@@ -2,13 +2,19 @@ import { useCartStore } from "../../store";
 import { VscChromeClose } from "react-icons/vsc";
 import { IoCloseOutline } from "react-icons/io5";
 import "./Cart.scss";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import authContext from "../../auth/authContext";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const cartItems = useCartStore((s) => s.items);
   const handleCartOpen = useCartStore((s) => s.handleOpen);
   const handleRemove = useCartStore((s) => s.removeItem);
   const increment = useCartStore((s) => s.incQuantity);
   const decrement = useCartStore((s) => s.decQuantity);
+
+  const { user } = useContext(authContext);
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
@@ -39,7 +45,7 @@ const Cart = () => {
               </thead>
               <tbody>
                 {cartItems.map((c) => (
-                  <tr>
+                  <tr key={c._id}>
                     <td>
                       <img src={c.img} alt="" />
                     </td>
@@ -84,7 +90,15 @@ const Cart = () => {
                 </tr>
               </tfoot>
             </table>
-            <button className="btn-checkout">Check Out</button>
+            <button
+              onClick={() => {
+                user ? navigate("/checkout") : navigate("/login");
+                handleCartOpen();
+              }}
+              className="btn-checkout"
+            >
+              Check Out
+            </button>
           </>
         )}
       </div>
