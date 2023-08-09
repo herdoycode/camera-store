@@ -1,0 +1,32 @@
+.card-skeleton {
+  padding: 1rem;
+  .card-body {
+    box-shadow: var(--box-shadow);
+    .card-img {
+      width: 100%;
+      height: 18rem;
+      background: var(--color-skeleteon);
+    }
+    .info {
+      padding: 2rem;
+
+      .heading {
+        width: 100%;
+        height: 3rem;
+        background: var(--color-skeleteon);
+        margin-bottom: 1.5rem;
+      }
+      .desc {
+        width: 100%;
+        height: 1.6rem;
+        background: var(--color-skeleteon);
+        margin-bottom: 1rem;
+      }
+      .price {
+        width: 20%;
+        height: 2.2rem;
+        background: var(--color-skeleteon);
+      }
+    }
+  }
+}

@@ -4,11 +4,12 @@ import useBrands from "../../hooks/useBrands";
 import useProducts from "../../hooks/useProducts";
 import Card from "../../components/card/Card";
 import { useProductQueryStore } from "../../store";
+import CardSkeleton from "../../components/card-skeleton/CardSkeleton";
 
 const Products = () => {
   const [filterPrice, setFilterPrice] = useState<number | undefined>();
   const { data: brands } = useBrands();
-  const { data: products } = useProducts();
+  const { data: products, isLoading } = useProducts();
   const brandId = useProductQueryStore((e) => e.productQuery.brandId);
 
   const setBrandId = useProductQueryStore((s) => s.setBrandId);
@@ -51,11 +52,22 @@ const Products = () => {
         <div className="top">
           <h2>All Products</h2>
         </div>
-        <div className="products">
-          {products?.map((product) => (
-            <Card product={product} key={product._id} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="products">
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+            <CardSkeleton />
+          </div>
+        ) : (
+          <div className="products">
+            {products?.map((product) => (
+              <Card product={product} key={product._id} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
