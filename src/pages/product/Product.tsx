@@ -4,6 +4,7 @@ import useProduct from "../../hooks/useProduct";
 import { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { useCartStore } from "../../store";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { id } = useParams();
@@ -67,15 +68,16 @@ const Product = () => {
 
           <button
             className="btn-cart"
-            onClick={() =>
-              addToCart({
+            onClick={() =>{
+               addToCart({
                 _id: product._id,
                 title: product.title,
                 img: product.img,
                 quantity: quantity,
                 price: product.price,
               })
-            }
+              toast.success("Product Added to your cart")
+            }}
           >
             Add TO CART <FaCartPlus />
           </button>

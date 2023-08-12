@@ -21,7 +21,7 @@ const Layout = () => {
       <Outlet />
       <Footer />
       {isOpenCart && <Cart />}
-      <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" theme={mode} />
     </div>
   );
 };
