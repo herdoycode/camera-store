@@ -7,7 +7,7 @@ import { useProductQueryStore } from "../../store";
 import CardSkeleton from "../../components/card-skeleton/CardSkeleton";
 
 const Products = () => {
-  const [filterPrice, setFilterPrice] = useState<number | undefined>();
+  const [filterPrice, setFilterPrice] = useState<number>(0);
   const { data: brands } = useBrands();
   const { data: products, isLoading } = useProducts();
   const brandId = useProductQueryStore((e) => e.productQuery.brandId);
