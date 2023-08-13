@@ -1,12 +1,15 @@
+import "./Cart.scss";
 import { useCartStore } from "../../store";
 import { VscChromeClose } from "react-icons/vsc";
 import { IoCloseOutline } from "react-icons/io5";
-import "./Cart.scss";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import authContext from "../../auth/authContext";
+import { toast } from "react-toastify";
+import apiClient from "../../services/apiClient";
 
 const Cart = () => {
+  const [isLoading, setLoging] = useState<boolean>(false);
   const navigate = useNavigate();
   const cartItems = useCartStore((s) => s.items);
   const handleCartOpen = useCartStore((s) => s.handleOpen);
@@ -92,12 +95,27 @@ const Cart = () => {
             </table>
             <button
               onClick={() => {
-                user ? navigate("/checkout") : navigate("/login");
-                handleCartOpen();
+                if (!user) {
+                  handleCartOpen();
+                  return navigate("/login");
+                } else {
+                  setLoging(true);
+                  apiClient
+                    .post("/stripe", { cartItems })
+                    .then((res) => {
+                      window.location.href = res.data.url;
+                      handleCartOpen();
+                      setLoging(false);
+                    })
+                    .catch((err) => {
+                      setLoging(false);
+                      toast.error(err.message);
+                    });
+                }
               }}
               className="btn-checkout"
             >
-              Check Out
+              {isLoading ? "Loading..." : "Check Out"}
             </button>
           </>
         )}

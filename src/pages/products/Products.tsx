@@ -21,11 +21,21 @@ const Products = () => {
         <div className="fitler-left">
           <h3>Filter by brand</h3>
           <ul>
-            <li onClick={() => setBrandId("")}>All Product</li>
+            <li
+              onClick={() => {
+                setBrandId("");
+                setFilterPrice(0);
+              }}
+            >
+              All Product
+            </li>
             {brands?.map((brand) => (
               <li
                 className={brand._id === brandId ? "active" : ""}
-                onClick={() => setBrandId(brand._id)}
+                onClick={() => {
+                  setBrandId(brand._id);
+                  setFilterPrice(0);
+                }}
                 key={brand._id}
               >
                 {brand.name}
@@ -38,6 +48,7 @@ const Products = () => {
           <span>$0 {filterPrice ? `- ${filterPrice}` : null} </span>
           <input
             type="range"
+            value={filterPrice}
             min={0}
             max={1000}
             onChange={(e) => {

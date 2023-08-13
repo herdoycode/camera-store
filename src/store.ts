@@ -93,13 +93,10 @@ interface GameQueryStore {
 
 export const useProductQueryStore = create<GameQueryStore>((set) => ({
   productQuery: {},
-
   setBrandId: (brandId) =>
-    set((store) => ({
+    set(() => ({
       productQuery: {
-        ...store.productQuery,
         brandId: brandId,
-        searchText: undefined,
       },
     })),
   setPrice: (price) =>
