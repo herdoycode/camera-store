@@ -33,6 +33,7 @@ interface CartStoreInterface {
   removeItem: (itemId: string) => void;
   incQuantity: (itemId: string) => void;
   decQuantity: (itemId: string) => void;
+  emptyCart: ()=> void;
   isOpen: boolean;
   handleOpen: () => void;
 }
@@ -71,6 +72,7 @@ export const useCartStore = create<CartStoreInterface>()(
           );
           return { items: updatedItem };
         }),
+        emptyCart: () => set(()=> ({items: []}) ),
       handleOpen: () =>
         set(({ isOpen }) => ({ isOpen: isOpen ? false : true })),
     }),

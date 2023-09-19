@@ -1,12 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
-import "./Login.scss";
-import { useForm } from "react-hook-form";
-import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
-import apiClient from "../../services/apiClient";
+import Joi from "joi";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useContext, useEffect } from "react";
 import authContext from "../../auth/authContext";
+import Loading from "../../components/loading/Loading";
+import apiClient from "../../services/apiClient";
+import "./Login.scss";
 
 const schema = Joi.object({
   email: Joi.string()
@@ -21,6 +22,7 @@ interface FormData {
   password: string;
 }
 const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { user } = useContext(authContext);
 
@@ -36,9 +38,11 @@ const Login = () => {
   } = useForm<FormData>({ resolver: joiResolver(schema) });
 
   const onSubmit = (data: FormData) => {
+    setLoading(true);
     apiClient
       .post("/auth", data)
       .then((res) => {
+        setLoading(false);
         localStorage.setItem("token", res.data);
         reset();
         toast.success("Login success");
@@ -50,7 +54,7 @@ const Login = () => {
         if (err.response && err.response.data) {
           toast.error(err.response.data);
         }
-        console.log(err.message);
+        setLoading(false);
       });
   };
 
@@ -79,7 +83,7 @@ const Login = () => {
               <p className="text-danger">{errors.password.message}</p>
             )}
           </div>
-          <button type="submit">Login</button>
+          <button type="submit">{loading ? <Loading /> : "Login"}</button>
         </form>
         <Link className="link" to="/signup">
           Create new account

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./Products.scss";
+import CardSkeleton from "../../components/card-skeleton/CardSkeleton";
+import Card from "../../components/card/Card";
 import useBrands from "../../hooks/useBrands";
 import useProducts from "../../hooks/useProducts";
-import Card from "../../components/card/Card";
 import { useProductQueryStore } from "../../store";
-import CardSkeleton from "../../components/card-skeleton/CardSkeleton";
+import "./Products.scss";
 
 const Products = () => {
   const [filterPrice, setFilterPrice] = useState<number>(0);

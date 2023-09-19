@@ -1,12 +1,15 @@
-import { Link, useNavigate } from "react-router-dom";
-import "./Signup.scss";
-import { useForm } from "react-hook-form";
-import Joi from "joi";
 import { joiResolver } from "@hookform/resolvers/joi";
-import { useContext, useEffect } from "react";
-import authContext from "../../auth/authContext";
-import apiClient from "../../services/apiClient";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import Joi from "joi";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import authContext from "../../auth/authContext";
+import Loading from "../../components/loading/Loading";
+import { storage } from "../../firebase";
+import apiClient from "../../services/apiClient";
+import "./Signup.scss";
 
 const schema = Joi.object({
   name: Joi.string().required().label("Name"),
@@ -15,14 +18,17 @@ const schema = Joi.object({
     .required()
     .label("Email"),
   password: Joi.string().min(8).required().label("Password"),
+  avatar: Joi.any(),
 });
 
 interface FormData {
   name: string;
   email: string;
   password: string;
+  avatar: FileList;
 }
 const Signup = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { user } = useContext(authContext);
 
@@ -33,27 +39,31 @@ const Signup = () => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<FormData>({ resolver: joiResolver(schema) });
 
-  const onSubmit = (data: FormData) => {
-    apiClient
-      .post("/users", data)
-      .then((res) => {
-        localStorage.setItem("token", res.headers["x-auth-token"]);
-        reset();
-        toast.success("Signup success");
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 3000);
-      })
-      .catch((err) => {
-        if (err.response && err.response.data) {
-          toast.error(err.response.data);
-        }
-        console.log(err.message);
+  const onSubmit = async (data: FormData) => {
+    setLoading(true);
+    const file = data.avatar[0];
+    const storageRef = ref(storage, `${Date.now()}`);
+    await uploadBytesResumable(storageRef, file).then(() => {
+      getDownloadURL(storageRef).then(async (downloadURL: string) => {
+        apiClient
+          .post("/users", { ...data, avatar: downloadURL })
+          .then((res) => {
+            localStorage.setItem("token", res.headers["x-auth-token"]);
+            setLoading(false);
+            toast.success("Registered Success!");
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 3000);
+          })
+          .catch((err) => {
+            setLoading(false);
+            toast.error(err.message);
+          });
       });
+    });
   };
 
   return (
@@ -81,14 +91,21 @@ const Signup = () => {
             <input
               {...register("password")}
               type="password"
+              required
               placeholder="Password"
             />
+            {errors.avatar && (
+              <p className="text-danger">{errors.avatar.message}</p>
+            )}
+          </div>
+          <div>
+            <input {...register("avatar")} type="file" />
             {errors.password && (
               <p className="text-danger">{errors.password.message}</p>
             )}
           </div>
 
-          <button type="submit">Submit</button>
+          <button type="submit">{loading ? <Loading /> : "Submit"}</button>
         </form>
         <Link className="link" to="/login">
           Already have account? login

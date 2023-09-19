@@ -1,11 +1,11 @@
-import { Outlet } from "react-router-dom";
-import "./Layout.scss";
-import Navbar from "../../components/navbar/Navbar";
-import Footer from "../../components/footer/Footer";
 import { useEffect } from "react";
-import { useCartStore, useThemeStore } from "../../store";
-import Cart from "../../components/cart/Cart";
+import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Cart from "../../components/cart/Cart";
+import Footer from "../../components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
+import { useCartStore, useThemeStore } from "../../store";
+import "./Layout.scss";
 
 const Layout = () => {
   const mode = useThemeStore((store) => store.mode);
