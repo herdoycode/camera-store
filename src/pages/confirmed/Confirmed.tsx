@@ -8,7 +8,7 @@ const Confirmed = () => {
   const emptyCart = useCartStore((s) => s.emptyCart);
   useEffect(() => {
     emptyCart();
-    setTimeout(() => navigate("/"), 30000);
+    setTimeout(() => navigate("/"), 3000);
   }, []);
   return (
     <div className="confirmed">
