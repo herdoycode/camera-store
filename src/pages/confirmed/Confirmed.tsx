@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import "./Confirmed.scss";
-import { useCartStore } from "../../store";
+import { TiTickOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
+import { useCartStore } from "../../store";
+import "./Confirmed.scss";
 
 const Confirmed = () => {
   const navigate = useNavigate();
@@ -12,7 +13,10 @@ const Confirmed = () => {
   }, []);
   return (
     <div className="confirmed">
-      <h1>Order Confirmed!</h1>
+      <div className="tick">
+        <TiTickOutline />
+      </div>
+      <h1>Thank you for your order!</h1>
     </div>
   );
 };
